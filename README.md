@@ -2,8 +2,6 @@
 [![Actions Status](https://github.com/kirillchistov/fullstack-javascript-project-12/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/kirillchistov/fullstack-javascript-project-12/actions)
 
 
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=kirillchistov_fullstack-javascript-project-12&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=kirillchistov_fullstack-javascript-project-12)
-
 ## Чат (Slack)
 - Приложение - упрощенный аналог Slack-чата
 - Технологии: Web Sockets, REST API, React Hooks, Redux и RTK, клиентский роутинг, авторизация и аутентификация, сборка (Vite) и деплой.
@@ -14,8 +12,7 @@
 
 ## Демо
 
-<!-- TODO: деплой на Render -->
-[Деплой на Render](https://fullstack-javascript-project-12-r75g.onrender.comonrender.com)
+[Задеплоенное приложение](https://fullstack-javascript-project-12-r75g.onrender.com)
 
 ## Установка
 
@@ -83,7 +80,7 @@ curl http://localhost:5001/api/v1/channels
 - [x] Настроить проксирование запросов фронтенд-приложения на сервер, указав proxy в vite.config.js (см [пример настроенного приложени](https://github.com/hexlet-components/js-react-hexlet-chat).
 - [x] Проверить, что фронтенд-приложение собирается по команде npm run build, настроить запуск через команду make build. - [x] Настроить запуск сервера по команде make start. Передать в параметрах путь к директории собранного фронтенд-приложения. Пример команды для запуска: npx start-server -s ./frontend/dist
 - [x] Зарегистрировать аккаунт на Render. Если требуется, укажите "Для учебных целей" при регистрации аккаунта, чтобы пользоваться сервисом бесплатно. Так же проверяйте, что используете бесплатные тарифы при создании проекта. Задеплойте проект. Ориентируйтесь на [пример настроенного приложения](https://github.com/hexlet-components/js-react-hexlet-chat)
-- [x] Добавить в README.md проекта ссылку на задеплоенное приложение
+- [x] Добавить в README.md проекта [ссылку на задеплоенное приложение](https://fullstack-javascript-project-12-r75g.onrender.com)
 
 ### Шаг 1
 - [x] Подключиться к GitHub и [создать репозиторий](https://github.com/kirillchistov/fullstack-javascript-project-12)
