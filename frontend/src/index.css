@@ -2,11 +2,16 @@ body {
   margin: 0;
 }
 
-.page {
+#root {
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
+}
+
+.chat-page {
+  min-height: 100vh;
+  background-color: #f8f9fa;
+}
+
+.messages-list {
+  flex: 1;
+  max-height: calc(100vh - 220px);
 }
