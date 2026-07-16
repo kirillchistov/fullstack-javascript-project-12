@@ -1,7 +1,10 @@
+import i18next from 'i18next';
 import { StrictMode } from 'react';
+import { I18nextProvider, initReactI18next } from 'react-i18next';
 import { Provider } from 'react-redux';
 import { io } from 'socket.io-client';
 import App from './components/App.jsx';
+import resources from './locales/index.js';
 import store from './store/index.js';
 import { channelsApi } from './store/channelsApi.js';
 import { messagesApi } from './store/messagesApi.js';
@@ -83,14 +86,29 @@ const initSocket = () => {
   return socket;
 };
 
-const init = () => {
+const init = async () => {
+  const i18n = i18next.createInstance();
+
+  await i18n
+    .use(initReactI18next)
+    .init({
+      resources,
+      lng: 'ru',
+      fallbackLng: 'ru',
+      interpolation: {
+        escapeValue: false,
+      },
+    });
+
   initSocket();
 
   return (
     <StrictMode>
-      <Provider store={store}>
-        <App />
-      </Provider>
+      <I18nextProvider i18n={i18n}>
+        <Provider store={store}>
+          <App />
+        </Provider>
+      </I18nextProvider>
     </StrictMode>
   );
 };

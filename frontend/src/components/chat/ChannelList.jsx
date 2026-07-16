@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Dropdown from 'react-bootstrap/Dropdown';
@@ -11,6 +12,7 @@ const ChannelList = ({
   onActive,
   onShowModal,
 }) => {
+  const { t } = useTranslation();
   const activeChannelRef = useRef(null);
 
   useEffect(() => {
@@ -45,14 +47,14 @@ const ChannelList = ({
                     className="channel-gear-toggle"
                     id={`channel-dropdown-${channel.id}`}
                   >
-                    <Gear aria-label="Управление каналом" />
+                    <Gear aria-label={t('buttons.management')} />
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
                     <Dropdown.Item onClick={() => onShowModal('renaming', channel)}>
-                      Переименовать
+                      {t('chat.channelList.rename')}
                     </Dropdown.Item>
                     <Dropdown.Item onClick={() => onShowModal('removing', channel)}>
-                      Удалить
+                      {t('chat.channelList.delete')}
                     </Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>

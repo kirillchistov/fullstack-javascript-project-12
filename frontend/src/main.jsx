@@ -3,4 +3,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 import init from './init.jsx';
 
-createRoot(document.getElementById('root')).render(init());
+const app = async () => {
+  const root = createRoot(document.getElementById('root'));
+  root.render(await init());
+};
+
+app();

@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useFormik } from 'formik';
 import { Link, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Container from 'react-bootstrap/Container';
@@ -11,6 +12,7 @@ import routes from '../routes.js';
 import { setCredentials } from '../store/authSlice.js';
 
 const LoginPage = () => {
+  const { t } = useTranslation();
   const [authFailed, setAuthFailed] = useState(false);
   const inputRef = useRef(null);
   const navigate = useNavigate();
@@ -51,14 +53,14 @@ const LoginPage = () => {
       <div className="d-flex flex-column justify-content-center align-items-center min-vh-100 py-4">
         <Card className="w-50 shadow-sm">
           <Card.Body className="p-5">
-            <h1 className="text-center mb-4">Войти</h1>
+            <h1 className="text-center mb-4">{t('loginPage.title')}</h1>
             <Form onSubmit={formik.handleSubmit}>
               <Form.Group className="mb-3" controlId="username">
-                <Form.Label>Ваш ник</Form.Label>
+                <Form.Label>{t('loginPage.form.username')}</Form.Label>
                 <Form.Control
                   name="username"
                   type="text"
-                  placeholder="Ваш ник"
+                  placeholder={t('loginPage.form.username')}
                   onChange={formik.handleChange}
                   value={formik.values.username}
                   isInvalid={authFailed}
@@ -67,18 +69,18 @@ const LoginPage = () => {
                 />
               </Form.Group>
               <Form.Group className="mb-4" controlId="password">
-                <Form.Label>Пароль</Form.Label>
+                <Form.Label>{t('loginPage.form.password')}</Form.Label>
                 <Form.Control
                   name="password"
                   type="password"
-                  placeholder="Пароль"
+                  placeholder={t('loginPage.form.password')}
                   onChange={formik.handleChange}
                   value={formik.values.password}
                   isInvalid={authFailed}
                   required
                 />
                 <Form.Control.Feedback type="invalid">
-                  Неверные имя пользователя или пароль
+                  {t('loginPage.form.feedback')}
                 </Form.Control.Feedback>
               </Form.Group>
               <Button
@@ -87,14 +89,14 @@ const LoginPage = () => {
                 className="w-100"
                 disabled={formik.isSubmitting}
               >
-                Войти
+                {t('buttons.enter')}
               </Button>
             </Form>
           </Card.Body>
           <Card.Footer className="p-4 text-center">
-            Нет аккаунта?
+            {t('loginPage.footer.sentence')}
             {' '}
-            <Link to={routes.signupPage()}>Регистрация</Link>
+            <Link to={routes.signupPage()}>{t('loginPage.footer.link')}</Link>
           </Card.Footer>
         </Card>
       </div>

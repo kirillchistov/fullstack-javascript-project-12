@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
@@ -9,6 +10,7 @@ import { useAddMessageMutation } from '../../store/messagesApi.js';
 import { getConnectionStatus } from '../../store/uiSlice.js';
 
 const MessageInput = ({ activeChannel }) => {
+  const { t } = useTranslation();
   const [message, setMessage] = useState('');
   const [submitError, setSubmitError] = useState(null);
   const inputRef = useRef(null);
@@ -41,7 +43,7 @@ const MessageInput = ({ activeChannel }) => {
       setMessage('');
       inputRef.current?.focus();
     } catch {
-      setSubmitError('Не удалось отправить сообщение. Проверьте подключение к сети.');
+      setSubmitError(t('chat.input.submitError'));
     }
   };
 
@@ -53,8 +55,10 @@ const MessageInput = ({ activeChannel }) => {
       <InputGroup>
         <Form.Control
           name="body"
-          placeholder={isOffline ? 'Нет соединения...' : 'Введите сообщение...'}
-          aria-label="Новое сообщение"
+          placeholder={isOffline
+            ? t('chat.input.offlinePlaceholder')
+            : t('chat.input.placeholder')}
+          aria-label={t('chat.input.label')}
           value={message}
           onChange={(event) => setMessage(event.target.value)}
           disabled={isLoading || isOffline}
@@ -67,10 +71,10 @@ const MessageInput = ({ activeChannel }) => {
         >
           {isLoading ? (
             <Spinner animation="border" size="sm" role="status">
-              <span className="visually-hidden">Отправка...</span>
+              <span className="visually-hidden">{t('buttons.sending')}</span>
             </Spinner>
           ) : (
-            'Отправить'
+            t('buttons.send')
           )}
         </Button>
       </InputGroup>

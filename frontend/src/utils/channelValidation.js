@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 
-export const createChannelSchema = (existingNames, excludeName = null) => {
+export const createChannelSchema = (existingNames, t, excludeName = null) => {
   const names = excludeName
     ? existingNames.filter((name) => name !== excludeName)
     : existingNames;
@@ -9,9 +9,9 @@ export const createChannelSchema = (existingNames, excludeName = null) => {
     name: yup
       .string()
       .trim()
-      .min(3, 'От 3 до 20 символов')
-      .max(20, 'От 3 до 20 символов')
-      .notOneOf(names, 'Должно быть уникальным')
-      .required('Обязательное поле'),
+      .min(3, t('validate.min3max20'))
+      .max(20, t('validate.min3max20'))
+      .notOneOf(names, t('validate.notOneOf'))
+      .required(t('validate.required')),
   });
 };

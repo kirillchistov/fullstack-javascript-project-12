@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { Formik } from 'formik';
+import { useTranslation } from 'react-i18next';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
@@ -7,6 +8,7 @@ import { createChannelSchema } from '../utils/channelValidation.js';
 import { useEditChannelMutation } from '../store/channelsApi.js';
 
 const RenameChannel = ({ onHide, channelNames, modalChannel }) => {
+  const { t } = useTranslation();
   const { id, name: currentName } = modalChannel.channel;
   const [editChannel, { isLoading }] = useEditChannelMutation();
   const inputRef = useRef(null);
@@ -28,11 +30,11 @@ const RenameChannel = ({ onHide, channelNames, modalChannel }) => {
   return (
     <Modal show onHide={onHide} centered>
       <Modal.Header closeButton>
-        <Modal.Title>Переименовать канал</Modal.Title>
+        <Modal.Title>{t('modal.renameChannel.title')}</Modal.Title>
       </Modal.Header>
       <Formik
         initialValues={{ name: currentName }}
-        validationSchema={createChannelSchema(channelNames, currentName)}
+        validationSchema={createChannelSchema(channelNames, t, currentName)}
         onSubmit={handleSubmit}
       >
         {({
@@ -45,7 +47,9 @@ const RenameChannel = ({ onHide, channelNames, modalChannel }) => {
           <Form onSubmit={submitForm}>
             <Modal.Body>
               <Form.Group controlId="renameChannelName">
-                <Form.Label className="visually-hidden">Имя канала</Form.Label>
+                <Form.Label className="visually-hidden">
+                  {t('modal.renameChannel.name')}
+                </Form.Label>
                 <Form.Control
                   type="text"
                   name="name"
@@ -62,10 +66,10 @@ const RenameChannel = ({ onHide, channelNames, modalChannel }) => {
             </Modal.Body>
             <Modal.Footer>
               <Button variant="secondary" onClick={onHide} disabled={isLoading || isSubmitting}>
-                Отменить
+                {t('buttons.cancel')}
               </Button>
               <Button type="submit" variant="primary" disabled={isLoading || isSubmitting}>
-                {isLoading || isSubmitting ? 'Отправка...' : 'Отправить'}
+                {isLoading || isSubmitting ? t('buttons.sending') : t('buttons.send')}
               </Button>
             </Modal.Footer>
           </Form>

@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { Formik } from 'formik';
+import { useTranslation } from 'react-i18next';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
@@ -9,6 +10,7 @@ import { useAddChannelMutation } from '../store/channelsApi.js';
 import { setActiveChannel } from '../store/uiSlice.js';
 
 const AddChannel = ({ onHide, channelNames }) => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const [addChannel, { isLoading }] = useAddChannelMutation();
   const inputRef = useRef(null);
@@ -30,11 +32,11 @@ const AddChannel = ({ onHide, channelNames }) => {
   return (
     <Modal show onHide={onHide} centered>
       <Modal.Header closeButton>
-        <Modal.Title>Добавить канал</Modal.Title>
+        <Modal.Title>{t('modal.addChannel.title')}</Modal.Title>
       </Modal.Header>
       <Formik
         initialValues={{ name: '' }}
-        validationSchema={createChannelSchema(channelNames)}
+        validationSchema={createChannelSchema(channelNames, t)}
         onSubmit={handleSubmit}
       >
         {({
@@ -47,7 +49,9 @@ const AddChannel = ({ onHide, channelNames }) => {
           <Form onSubmit={submitForm}>
             <Modal.Body>
               <Form.Group controlId="addChannelName">
-                <Form.Label className="visually-hidden">Имя канала</Form.Label>
+                <Form.Label className="visually-hidden">
+                  {t('modal.addChannel.name')}
+                </Form.Label>
                 <Form.Control
                   type="text"
                   name="name"
@@ -64,10 +68,10 @@ const AddChannel = ({ onHide, channelNames }) => {
             </Modal.Body>
             <Modal.Footer>
               <Button variant="secondary" onClick={onHide} disabled={isLoading || isSubmitting}>
-                Отменить
+                {t('buttons.cancel')}
               </Button>
               <Button type="submit" variant="primary" disabled={isLoading || isSubmitting}>
-                {isLoading || isSubmitting ? 'Отправка...' : 'Отправить'}
+                {isLoading || isSubmitting ? t('buttons.sending') : t('buttons.send')}
               </Button>
             </Modal.Footer>
           </Form>

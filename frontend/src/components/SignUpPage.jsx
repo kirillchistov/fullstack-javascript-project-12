@@ -3,15 +3,17 @@ import { useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { Formik } from 'formik';
 import { Link, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import routes from '../routes.js';
 import { setCredentials } from '../store/authSlice.js';
-import { signupSchema } from '../utils/signupValidation.js';
+import { createSignupSchema } from '../utils/signupValidation.js';
 
 const SignUpPage = () => {
+  const { t } = useTranslation();
   const inputRef = useRef(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -32,7 +34,7 @@ const SignUpPage = () => {
       setSubmitting(false);
 
       if (axios.isAxiosError(error) && error.response?.status === 409) {
-        setErrors({ username: 'Такой пользователь уже существует' });
+        setErrors({ username: t('errors.userExists') });
         inputRef.current?.select();
         return;
       }
@@ -46,14 +48,14 @@ const SignUpPage = () => {
       <div className="d-flex flex-column justify-content-center align-items-center min-vh-100 py-4">
         <Card className="w-50 shadow-sm">
           <Card.Body className="p-5">
-            <h1 className="text-center mb-4">Регистрация</h1>
+            <h1 className="text-center mb-4">{t('signUpPage.title')}</h1>
             <Formik
               initialValues={{
                 username: '',
                 password: '',
                 confirmPassword: '',
               }}
-              validationSchema={signupSchema}
+              validationSchema={createSignupSchema(t)}
               onSubmit={handleSubmit}
             >
               {({
@@ -67,11 +69,11 @@ const SignUpPage = () => {
               }) => (
                 <Form noValidate onSubmit={submitForm}>
                   <Form.Group className="mb-3" controlId="signupUsername">
-                    <Form.Label>Ваш ник</Form.Label>
+                    <Form.Label>{t('signUpPage.form.username')}</Form.Label>
                     <Form.Control
                       name="username"
                       type="text"
-                      placeholder="Ваш ник"
+                      placeholder={t('signUpPage.form.username')}
                       value={values.username}
                       onChange={handleChange}
                       onBlur={handleBlur}
@@ -84,11 +86,11 @@ const SignUpPage = () => {
                     </Form.Control.Feedback>
                   </Form.Group>
                   <Form.Group className="mb-3" controlId="signupPassword">
-                    <Form.Label>Пароль</Form.Label>
+                    <Form.Label>{t('signUpPage.form.password')}</Form.Label>
                     <Form.Control
                       name="password"
                       type="password"
-                      placeholder="Пароль"
+                      placeholder={t('signUpPage.form.password')}
                       value={values.password}
                       onChange={handleChange}
                       onBlur={handleBlur}
@@ -100,11 +102,11 @@ const SignUpPage = () => {
                     </Form.Control.Feedback>
                   </Form.Group>
                   <Form.Group className="mb-4" controlId="signupConfirmPassword">
-                    <Form.Label>Подтверждение пароля</Form.Label>
+                    <Form.Label>{t('signUpPage.form.confirmPassword')}</Form.Label>
                     <Form.Control
                       name="confirmPassword"
                       type="password"
-                      placeholder="Подтверждение пароля"
+                      placeholder={t('signUpPage.form.confirmPassword')}
                       value={values.confirmPassword}
                       onChange={handleChange}
                       onBlur={handleBlur}
@@ -121,16 +123,16 @@ const SignUpPage = () => {
                     className="w-100"
                     disabled={isSubmitting}
                   >
-                    Зарегистрироваться
+                    {t('buttons.register')}
                   </Button>
                 </Form>
               )}
             </Formik>
           </Card.Body>
           <Card.Footer className="p-4 text-center">
-            Уже есть аккаунт?
+            {t('signUpPage.footer.sentence')}
             {' '}
-            <Link to={routes.loginPage()}>Войти</Link>
+            <Link to={routes.loginPage()}>{t('signUpPage.footer.link')}</Link>
           </Card.Footer>
         </Card>
       </div>

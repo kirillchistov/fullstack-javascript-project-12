@@ -1,8 +1,10 @@
+import { useTranslation } from 'react-i18next';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { useRemoveChannelMutation } from '../store/channelsApi.js';
 
 const RemoveChannel = ({ onHide, modalChannel }) => {
+  const { t } = useTranslation();
   const { id, name } = modalChannel.channel;
   const [removeChannel, { isLoading }] = useRemoveChannelMutation();
 
@@ -18,19 +20,19 @@ const RemoveChannel = ({ onHide, modalChannel }) => {
   return (
     <Modal show onHide={onHide} centered>
       <Modal.Header closeButton>
-        <Modal.Title>Удалить канал</Modal.Title>
+        <Modal.Title>{t('modal.removeChannel.title')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <p className="mb-0">
-          {`Вы уверены, что хотите удалить канал # ${name}?`}
+          {t('modal.removeChannel.confirm', { name })}
         </p>
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={onHide} disabled={isLoading}>
-          Отменить
+          {t('buttons.cancel')}
         </Button>
         <Button variant="danger" onClick={handleDelete} disabled={isLoading}>
-          {isLoading ? 'Удаление...' : 'Удалить'}
+          {isLoading ? t('buttons.deleting') : t('buttons.delete')}
         </Button>
       </Modal.Footer>
     </Modal>
