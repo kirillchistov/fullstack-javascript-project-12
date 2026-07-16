@@ -8,32 +8,47 @@
 - Приложение - упрощенный аналог Slack-чата
 - Технологии: Web Sockets, REST API, React Hooks, Redux и RTK, клиентский роутинг, авторизация и аутентификация, сборка (Vite) и деплой.
 - [Пример проекта](https://frontend-chat-ru.hexlet.app/)
-- Скриншоты:
+- Скрины:
 ![Chat Main Screen](https://ru.hexlet.io/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6NDMyNjQsInB1ciI6ImJsb2JfaWQifX0=--c2bb5fb42217c9d90ecb529f61933e5eb2f57c32/chat.png)
 ![Add Chat Popup](https://ru.hexlet.io/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6NDMyNjUsInB1ciI6ImJsb2JfaWQifX0=--352ab4c7ae00b10cf8cb613421ee5909c008079b/channel.png)
+
+## Демо
+
+<!-- TODO: деплой на Render -->
+[Деплой на Render](https://fullstack-javascript-project-12-r75g.onrender.comonrender.com)
 
 ## Установка
 
 ```bash
-npm install
-npm link
+make install
 ```
 
 ## Запуск
 
 ```bash
-
+make build
+make start
 ```
 
-## Запуск с логами:
+Приложение доступно на [http://localhost:5001](http://localhost:5001).
+
+## Разработка
 
 ```bash
+make develop
+```
 
+Фронтенд — [http://localhost:5002](http://localhost:5002), API проксируется на сервер (порт 5001).
+
+## Запуск с логами
+
+```bash
+DEBUG=chat-server:* make start
 ```
 
 Пример для тестов:
 ```bash
-
+curl http://localhost:5001/api/v1/channels
 ```
 
 ## Шаги и задачи
@@ -67,7 +82,7 @@ npm link
 - [x] Изучить документацию сервера, найти в ней команду запуска сервера и запустить. Проверить что сервер работает: curl http://localhost:5001/api/v1/channels
 - [x] Настроить проксирование запросов фронтенд-приложения на сервер, указав proxy в vite.config.js (см [пример настроенного приложени](https://github.com/hexlet-components/js-react-hexlet-chat).
 - [x] Проверить, что фронтенд-приложение собирается по команде npm run build, настроить запуск через команду make build. - [x] Настроить запуск сервера по команде make start. Передать в параметрах путь к директории собранного фронтенд-приложения. Пример команды для запуска: npx start-server -s ./frontend/dist
-- [x] Зарегистрировать аккаунт на Render. Если требуется, укажите "Для учебных целей" при регистрации аккаунта, чтобы пользоваться сервисом бесплатно. Так же проверяйте, что используете бесплатные тарифы при создании проекта. Задеплойте проект. Ориентируйтесь на пример настроенного приложения
+- [x] Зарегистрировать аккаунт на Render. Если требуется, укажите "Для учебных целей" при регистрации аккаунта, чтобы пользоваться сервисом бесплатно. Так же проверяйте, что используете бесплатные тарифы при создании проекта. Задеплойте проект. Ориентируйтесь на [пример настроенного приложения](https://github.com/hexlet-components/js-react-hexlet-chat)
 - [x] Добавить в README.md проекта ссылку на задеплоенное приложение
 
 ### Шаг 1
