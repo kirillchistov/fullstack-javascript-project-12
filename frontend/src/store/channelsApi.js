@@ -20,7 +20,32 @@ export const channelsApi = createApi({
     getChannels: builder.query({
       query: () => '',
     }),
+    addChannel: builder.mutation({
+      query: (channel) => ({
+        url: '',
+        method: 'POST',
+        body: channel,
+      }),
+    }),
+    editChannel: builder.mutation({
+      query: ({ id, ...patch }) => ({
+        url: id,
+        method: 'PATCH',
+        body: patch,
+      }),
+    }),
+    removeChannel: builder.mutation({
+      query: (id) => ({
+        url: id,
+        method: 'DELETE',
+      }),
+    }),
   }),
 });
 
-export const { useGetChannelsQuery } = channelsApi;
+export const {
+  useGetChannelsQuery,
+  useAddChannelMutation,
+  useEditChannelMutation,
+  useRemoveChannelMutation,
+} = channelsApi;

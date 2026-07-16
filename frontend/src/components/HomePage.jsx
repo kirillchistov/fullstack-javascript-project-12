@@ -10,20 +10,45 @@ import MessageHeader from './chat/MessageHeader.jsx';
 import MessageInput from './chat/MessageInput.jsx';
 import MessageList from './chat/MessageList.jsx';
 import LoadingSpinner from './Spinner.jsx';
+import getModal from '../modals/index.js';
 import { useGetChannelsQuery } from '../store/channelsApi.js';
 import { useGetMessagesQuery } from '../store/messagesApi.js';
 import {
   getCurrentActiveChannel,
+  getCurrentModalChannel,
   setActiveChannel,
+  setDefaultChannel,
+  setModalChannel,
 } from '../store/uiSlice.js';
 
 const getGeneralChannel = (channels) => (
   channels.find((channel) => channel.name === 'general') ?? channels[0]
 );
 
+const renderModal = ({
+  modalChannel,
+  hideModal,
+  channelNames,
+}) => {
+  if (!modalChannel.type) {
+    return null;
+  }
+
+  const ModalComponent = getModal(modalChannel.type);
+
+  return (
+    <ModalComponent
+      onHide={hideModal}
+      modalChannel={modalChannel}
+      channelNames={channelNames}
+    />
+  );
+};
+
 const HomePage = () => {
   const dispatch = useDispatch();
   const activeChannel = useSelector(getCurrentActiveChannel);
+  const modalChannel = useSelector(getCurrentModalChannel);
   const channelId = activeChannel?.id;
 
   const { data: channels = [], isLoading: isLoadingChannels } = useGetChannelsQuery();
@@ -39,16 +64,23 @@ const HomePage = () => {
       return;
     }
 
+    const generalChannel = getGeneralChannel(channels);
+    dispatch(setDefaultChannel(generalChannel));
+
     const hasActiveChannel = channels.some((channel) => channel.id === activeChannel?.id);
 
     if (!hasActiveChannel) {
-      dispatch(setActiveChannel(getGeneralChannel(channels)));
+      dispatch(setActiveChannel(generalChannel));
     }
   }, [channels, activeChannel, dispatch]);
 
   if (isLoadingChannels || isLoadingMessages) {
     return <LoadingSpinner />;
   }
+
+  const channelNames = channels.map((channel) => channel.name);
+  const hideModal = () => dispatch(setModalChannel({ type: null, channel: null }));
+  const showModal = (type, channel = null) => dispatch(setModalChannel({ type, channel }));
 
   const handleActiveChannel = (channel) => {
     dispatch(setActiveChannel(channel));
@@ -59,16 +91,17 @@ const HomePage = () => {
       <ConnectionBanner />
       <Container fluid className="chat-page h-100">
         <Row className="h-100 bg-white shadow-sm">
-          <Col xs={4} className="border-end p-0 d-flex flex-column">
-            <ChannelHeader />
+          <Col xs={4} className="border-end p-0 d-flex flex-column channel-sidebar">
+            <ChannelHeader onAddChannel={showModal} />
             <ChannelList
               channels={channels}
               activeChannelId={activeChannel?.id}
               onActive={handleActiveChannel}
+              onShowModal={showModal}
             />
           </Col>
           <Col xs={8} className="p-0 d-flex flex-column">
-            <div className="d-flex flex-column h-100 p-3">
+            <div className="d-flex flex-column h-100 p-3 chat-panel">
               <MessageHeader
                 channelName={activeChannel?.name}
                 messagesCount={channelMessages.length}
@@ -79,6 +112,11 @@ const HomePage = () => {
           </Col>
         </Row>
       </Container>
+      {renderModal({
+        modalChannel,
+        hideModal,
+        channelNames,
+      })}
     </>
   );
 };
