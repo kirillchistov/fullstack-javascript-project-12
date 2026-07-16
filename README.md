@@ -1,2 +1,76 @@
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/kirillchistov/fullstack-javascript-project-12/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/kirillchistov/fullstack-javascript-project-12/actions)
+
+
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=kirillchistov_fullstack-javascript-project-12&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=kirillchistov_fullstack-javascript-project-12)
+
+## Чат (Slack)
+- Приложение - упрощенный аналог Slack-чата
+- Технологии: Web Sockets, REST API, React Hooks, Redux и RTK, клиентский роутинг, авторизация и аутентификация, сборка (Vite) и деплой.
+- [Пример проекта](https://frontend-chat-ru.hexlet.app/)
+- Скриншоты:
+![Chat Main Screen](https://ru.hexlet.io/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6NDMyNjQsInB1ciI6ImJsb2JfaWQifX0=--c2bb5fb42217c9d90ecb529f61933e5eb2f57c32/chat.png)
+![Add Chat Popup](https://ru.hexlet.io/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6NDMyNjUsInB1ciI6ImJsb2JfaWQifX0=--352ab4c7ae00b10cf8cb613421ee5909c008079b/channel.png)
+
+## Установка
+
+```bash
+npm install
+npm link
+```
+
+## Запуск
+
+```bash
+
+```
+
+## Запуск с логами:
+
+```bash
+
+```
+
+Пример для тестов:
+```bash
+
+```
+
+## Шаги и задачи
+
+### Шаг 13
+- []
+### Шаг 12
+- []
+### Шаг 11
+- []
+### Шаг 10
+- []
+### Шаг 9
+- []
+### Шаг 8
+- []
+### Шаг 7
+- []
+### Шаг 6
+- []
+### Шаг 5
+- []
+### Шаг 4
+- []
+### Шаг 3
+- []
+### Шаг 2
+- [x] Склонировать созданный репозиторий локально и инициализировать с именем @hexlet/code.
+- [x] Создать реакт-приложение с помощью npm create vite@latest frontend -- --template react
+- [x] Установить сервер в проект командой npm i @hexlet/chat-server. Сервер должен быть добавлен в зависимости проекта
+- [x] Изучить документацию сервера, найти в ней команду запуска сервера и запустить. Проверить что сервер работает: curl http://localhost:5001/api/v1/channels
+- [x] Настроить проксирование запросов фронтенд-приложения на сервер, указав proxy в vite.config.js (см [пример настроенного приложени](https://github.com/hexlet-components/js-react-hexlet-chat).
+- [x] Проверить, что фронтенд-приложение собирается по команде npm run build, настроить запуск через команду make build. - [x] Настроить запуск сервера по команде make start. Передать в параметрах путь к директории собранного фронтенд-приложения. Пример команды для запуска: npx start-server -s ./frontend/dist
+- [x] Зарегистрировать аккаунт на Render. Если требуется, укажите "Для учебных целей" при регистрации аккаунта, чтобы пользоваться сервисом бесплатно. Так же проверяйте, что используете бесплатные тарифы при создании проекта. Задеплойте проект. Ориентируйтесь на пример настроенного приложения
+- [x] Добавить в README.md проекта ссылку на задеплоенное приложение
+
+### Шаг 1
+- [x] Подключиться к GitHub и [создать репозиторий](https://github.com/kirillchistov/fullstack-javascript-project-12)
+- [x] Посмотреть описание и [пример проекта](https://frontend-chat-ru.hexlet.app/)
+- [x] Подготовить рабочее окружение к разработке
