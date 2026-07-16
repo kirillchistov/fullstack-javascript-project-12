@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { useRemoveChannelMutation } from '../store/channelsApi.js';
@@ -11,9 +12,10 @@ const RemoveChannel = ({ onHide, modalChannel }) => {
   const handleDelete = async () => {
     try {
       await removeChannel(id).unwrap();
+      toast.success(t('toast.deleteChannel'));
       onHide();
     } catch {
-      // keep modal open on error
+      toast.error(t('toast.errorNetwork'));
     }
   };
 

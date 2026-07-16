@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -46,18 +48,34 @@ const renderModal = ({
 };
 
 const HomePage = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const activeChannel = useSelector(getCurrentActiveChannel);
   const modalChannel = useSelector(getCurrentModalChannel);
   const channelId = activeChannel?.id;
 
-  const { data: channels = [], isLoading: isLoadingChannels } = useGetChannelsQuery();
-  const { data: channelMessages = [], isLoading: isLoadingMessages } = useGetMessagesQuery(undefined, {
-    selectFromResult: ({ data, isLoading }) => ({
+  const {
+    data: channels = [],
+    isLoading: isLoadingChannels,
+    isError: isChannelsError,
+  } = useGetChannelsQuery();
+  const {
+    data: channelMessages = [],
+    isLoading: isLoadingMessages,
+    isError: isMessagesError,
+  } = useGetMessagesQuery(undefined, {
+    selectFromResult: ({ data, isLoading, isError }) => ({
       data: data?.filter((message) => message.channelId === channelId) ?? [],
       isLoading,
+      isError,
     }),
   });
+
+  useEffect(() => {
+    if (isChannelsError || isMessagesError) {
+      toast.error(t('toast.errorNetwork'));
+    }
+  }, [isChannelsError, isMessagesError, t]);
 
   useEffect(() => {
     if (!channels.length) {

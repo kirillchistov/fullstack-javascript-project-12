@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
@@ -44,6 +45,7 @@ const MessageInput = ({ activeChannel }) => {
       inputRef.current?.focus();
     } catch {
       setSubmitError(t('chat.input.submitError'));
+      toast.error(t('toast.errorNetwork'));
     }
   };
 

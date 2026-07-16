@@ -97,5 +97,11 @@ export default {
         submitError: 'Не удалось отправить сообщение. Проверьте подключение к сети.',
       },
     },
+    toast: {
+      createChannel: 'Канал создан',
+      renameChannel: 'Канал переименован',
+      deleteChannel: 'Канал удалён',
+      errorNetwork: 'Ошибка соединения',
+    },
   },
 };

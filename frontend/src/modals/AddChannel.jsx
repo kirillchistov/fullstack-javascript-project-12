@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { Formik } from 'formik';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
@@ -23,8 +24,10 @@ const AddChannel = ({ onHide, channelNames }) => {
     try {
       const response = await addChannel({ name: values.name.trim() }).unwrap();
       dispatch(setActiveChannel(response));
+      toast.success(t('toast.createChannel'));
       onHide();
     } catch {
+      toast.error(t('toast.errorNetwork'));
       setSubmitting(false);
     }
   };

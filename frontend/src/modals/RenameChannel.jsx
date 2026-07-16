@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { Formik } from 'formik';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
@@ -21,8 +22,10 @@ const RenameChannel = ({ onHide, channelNames, modalChannel }) => {
   const handleSubmit = async (values, { setSubmitting }) => {
     try {
       await editChannel({ id, name: values.name.trim() }).unwrap();
+      toast.success(t('toast.renameChannel'));
       onHide();
     } catch {
+      toast.error(t('toast.errorNetwork'));
       setSubmitting(false);
     }
   };

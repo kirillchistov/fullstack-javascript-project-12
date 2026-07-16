@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { Formik } from 'formik';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Container from 'react-bootstrap/Container';
@@ -39,6 +40,7 @@ const SignUpPage = () => {
         return;
       }
 
+      toast.error(t('toast.errorNetwork'));
       throw error;
     }
   };

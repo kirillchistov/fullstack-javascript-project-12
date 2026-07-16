@@ -3,6 +3,9 @@ import { StrictMode } from 'react';
 import { I18nextProvider, initReactI18next } from 'react-i18next';
 import { Provider } from 'react-redux';
 import { io } from 'socket.io-client';
+import { ToastContainer, Slide } from 'react-toastify';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import App from './components/App.jsx';
 import resources from './locales/index.js';
 import store from './store/index.js';
@@ -15,7 +18,7 @@ import {
   setConnectionStatus,
 } from './store/uiSlice.js';
 
-const initSocket = () => {
+const initSocket = (i18n) => {
   const socket = io();
 
   socket.on('connect', () => {
@@ -24,6 +27,7 @@ const initSocket = () => {
 
   socket.on('disconnect', () => {
     store.dispatch(setConnectionStatus('offline'));
+    toast.error(i18n.t('toast.errorNetwork'));
   });
 
   socket.on('newMessage', (message) => {
@@ -100,13 +104,20 @@ const init = async () => {
       },
     });
 
-  initSocket();
+  initSocket(i18n);
 
   return (
     <StrictMode>
       <I18nextProvider i18n={i18n}>
         <Provider store={store}>
           <App />
+          <ToastContainer
+            transition={Slide}
+            autoClose={5000}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+          />
         </Provider>
       </I18nextProvider>
     </StrictMode>
