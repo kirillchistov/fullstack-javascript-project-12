@@ -2,11 +2,11 @@ import axios from 'axios';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useFormik } from 'formik';
+import { Link, useNavigate } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
-import { useNavigate } from 'react-router-dom';
 import routes from '../routes.js';
 import { setCredentials } from '../store/authSlice.js';
 
@@ -47,8 +47,8 @@ const LoginPage = () => {
   });
 
   return (
-    <Container fluid className="h-100 bg-light">
-      <div className="d-flex flex-column justify-content-center align-items-center min-vh-100">
+    <Container fluid className="bg-light">
+      <div className="d-flex flex-column justify-content-center align-items-center min-vh-100 py-4">
         <Card className="w-50 shadow-sm">
           <Card.Body className="p-5">
             <h1 className="text-center mb-4">Войти</h1>
@@ -91,6 +91,11 @@ const LoginPage = () => {
               </Button>
             </Form>
           </Card.Body>
+          <Card.Footer className="p-4 text-center">
+            Нет аккаунта?
+            {' '}
+            <Link to={routes.signupPage()}>Регистрация</Link>
+          </Card.Footer>
         </Card>
       </div>
     </Container>

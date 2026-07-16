@@ -7,17 +7,35 @@ body {
 }
 
 .chat-page {
-  min-height: 100vh;
+  min-height: calc(100vh - 56px);
   background-color: #f8f9fa;
 }
 
 .channel-sidebar {
-  min-height: 100vh;
-  max-height: 100vh;
+  min-height: calc(100vh - 56px);
+  max-height: calc(100vh - 56px);
 }
 
 .channel-list {
   flex: 1;
+  gap: 0;
+}
+
+.channel-item {
+  margin-bottom: 0;
+}
+
+.channel-button-group .btn,
+.channel-button {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+
+.channel-gear-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding-inline: 0.5rem;
 }
 
 .channel-button {
@@ -25,8 +43,8 @@ body {
 }
 
 .chat-panel {
-  min-height: 100vh;
-  max-height: 100vh;
+  min-height: calc(100vh - 56px);
+  max-height: calc(100vh - 56px);
 }
 
 .messages-list {

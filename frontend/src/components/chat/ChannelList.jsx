@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Nav from 'react-bootstrap/Nav';
+import { Gear } from 'react-bootstrap-icons';
 
 const ChannelList = ({
   channels,
@@ -17,7 +18,7 @@ const ChannelList = ({
   }, [channels, activeChannelId]);
 
   return (
-    <Nav className="flex-column nav-pills nav-fill px-2 channel-list overflow-auto">
+    <Nav className="flex-column px-2 channel-list overflow-auto align-items-start">
       {channels.map((channel) => {
         const isActive = channel.id === activeChannelId;
         const variant = isActive ? 'secondary' : 'light';
@@ -26,10 +27,10 @@ const ChannelList = ({
           <Nav.Item
             key={channel.id}
             ref={isActive ? activeChannelRef : null}
-            className="w-100 mb-1"
+            className="w-100 channel-item"
           >
             {channel.removable ? (
-              <ButtonGroup className="w-100">
+              <ButtonGroup className="w-100 channel-button-group">
                 <Button
                   variant={variant}
                   className="text-start rounded-0 text-truncate channel-button"
@@ -41,9 +42,10 @@ const ChannelList = ({
                   <Dropdown.Toggle
                     split
                     variant={variant}
+                    className="channel-gear-toggle"
                     id={`channel-dropdown-${channel.id}`}
                   >
-                    Управление
+                    <Gear aria-label="Управление каналом" />
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
                     <Dropdown.Item onClick={() => onShowModal('renaming', channel)}>
