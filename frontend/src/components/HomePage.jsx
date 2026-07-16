@@ -5,6 +5,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import ChannelHeader from './chat/ChannelHeader.jsx';
 import ChannelList from './chat/ChannelList.jsx';
+import ConnectionBanner from './chat/ConnectionBanner.jsx';
 import MessageHeader from './chat/MessageHeader.jsx';
 import MessageInput from './chat/MessageInput.jsx';
 import MessageList from './chat/MessageList.jsx';
@@ -15,6 +16,10 @@ import {
   getCurrentActiveChannel,
   setActiveChannel,
 } from '../store/uiSlice.js';
+
+const getGeneralChannel = (channels) => (
+  channels.find((channel) => channel.name === 'general') ?? channels[0]
+);
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -37,7 +42,7 @@ const HomePage = () => {
     const hasActiveChannel = channels.some((channel) => channel.id === activeChannel?.id);
 
     if (!hasActiveChannel) {
-      dispatch(setActiveChannel(channels[0]));
+      dispatch(setActiveChannel(getGeneralChannel(channels)));
     }
   }, [channels, activeChannel, dispatch]);
 
@@ -50,28 +55,31 @@ const HomePage = () => {
   };
 
   return (
-    <Container fluid className="chat-page h-100">
-      <Row className="h-100 bg-white shadow-sm">
-        <Col xs={4} className="border-end p-0 d-flex flex-column">
-          <ChannelHeader />
-          <ChannelList
-            channels={channels}
-            activeChannelId={activeChannel?.id}
-            onActive={handleActiveChannel}
-          />
-        </Col>
-        <Col xs={8} className="p-0 d-flex flex-column">
-          <div className="d-flex flex-column h-100 p-3">
-            <MessageHeader
-              channelName={activeChannel?.name}
-              messagesCount={channelMessages.length}
+    <>
+      <ConnectionBanner />
+      <Container fluid className="chat-page h-100">
+        <Row className="h-100 bg-white shadow-sm">
+          <Col xs={4} className="border-end p-0 d-flex flex-column">
+            <ChannelHeader />
+            <ChannelList
+              channels={channels}
+              activeChannelId={activeChannel?.id}
+              onActive={handleActiveChannel}
             />
-            <MessageList messages={channelMessages} />
-            <MessageInput activeChannelId={activeChannel?.id} />
-          </div>
-        </Col>
-      </Row>
-    </Container>
+          </Col>
+          <Col xs={8} className="p-0 d-flex flex-column">
+            <div className="d-flex flex-column h-100 p-3">
+              <MessageHeader
+                channelName={activeChannel?.name}
+                messagesCount={channelMessages.length}
+              />
+              <MessageList messages={channelMessages} />
+              <MessageInput activeChannel={activeChannel} />
+            </div>
+          </Col>
+        </Row>
+      </Container>
+    </>
   );
 };
 

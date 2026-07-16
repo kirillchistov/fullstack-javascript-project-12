@@ -4,6 +4,7 @@ const defaultChannel = { id: '1', name: 'general', removable: false };
 
 const initialState = {
   activeChannel: defaultChannel,
+  connectionStatus: 'online',
 };
 
 const uiSlice = createSlice({
@@ -14,11 +15,16 @@ const uiSlice = createSlice({
       ...state,
       activeChannel: action.payload,
     }),
+    setConnectionStatus: (state, action) => ({
+      ...state,
+      connectionStatus: action.payload,
+    }),
   },
 });
 
-export const { setActiveChannel } = uiSlice.actions;
+export const { setActiveChannel, setConnectionStatus } = uiSlice.actions;
 
 export const getCurrentActiveChannel = (state) => state.ui.activeChannel;
+export const getConnectionStatus = (state) => state.ui.connectionStatus;
 
 export default uiSlice.reducer;
