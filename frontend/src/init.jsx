@@ -7,6 +7,7 @@ import { ToastContainer, Slide } from 'react-toastify';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import App from './components/App.jsx';
+import { FilterProvider } from './contexts/FilterContext.jsx';
 import resources from './locales/index.js';
 import store from './store/index.js';
 import { channelsApi } from './store/channelsApi.js';
@@ -110,14 +111,16 @@ const init = async () => {
     <StrictMode>
       <I18nextProvider i18n={i18n}>
         <Provider store={store}>
-          <App />
-          <ToastContainer
-            transition={Slide}
-            autoClose={5000}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-          />
+          <FilterProvider>
+            <App />
+            <ToastContainer
+              transition={Slide}
+              autoClose={5000}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+            />
+          </FilterProvider>
         </Provider>
       </I18nextProvider>
     </StrictMode>

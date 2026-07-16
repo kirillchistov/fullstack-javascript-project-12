@@ -9,9 +9,11 @@ import Spinner from 'react-bootstrap/Spinner';
 import { getCurrentUser } from '../../store/authSlice.js';
 import { useAddMessageMutation } from '../../store/messagesApi.js';
 import { getConnectionStatus } from '../../store/uiSlice.js';
+import { useFilter } from '../../contexts/FilterContext.jsx';
 
 const MessageInput = ({ activeChannel }) => {
   const { t } = useTranslation();
+  const { clean } = useFilter();
   const [message, setMessage] = useState('');
   const [submitError, setSubmitError] = useState(null);
   const inputRef = useRef(null);
@@ -37,7 +39,7 @@ const MessageInput = ({ activeChannel }) => {
 
     try {
       await addMessage({
-        body: trimmedMessage,
+        body: clean(trimmedMessage),
         channelId: activeChannel.id,
         username,
       }).unwrap();

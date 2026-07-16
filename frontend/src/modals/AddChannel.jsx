@@ -9,9 +9,11 @@ import Modal from 'react-bootstrap/Modal';
 import { createChannelSchema } from '../utils/channelValidation.js';
 import { useAddChannelMutation } from '../store/channelsApi.js';
 import { setActiveChannel } from '../store/uiSlice.js';
+import { useFilter } from '../contexts/FilterContext.jsx';
 
 const AddChannel = ({ onHide, channelNames }) => {
   const { t } = useTranslation();
+  const { clean } = useFilter();
   const dispatch = useDispatch();
   const [addChannel, { isLoading }] = useAddChannelMutation();
   const inputRef = useRef(null);
@@ -22,7 +24,7 @@ const AddChannel = ({ onHide, channelNames }) => {
 
   const handleSubmit = async (values, { setSubmitting }) => {
     try {
-      const response = await addChannel({ name: values.name.trim() }).unwrap();
+      const response = await addChannel({ name: clean(values.name.trim()) }).unwrap();
       dispatch(setActiveChannel(response));
       toast.success(t('toast.createChannel'));
       onHide();
