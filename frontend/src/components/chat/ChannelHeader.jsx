@@ -11,7 +11,6 @@ const ChannelHeader = ({ onAddChannel }) => {
         variant="light"
         className="p-0 text-primary"
         onClick={() => onAddChannel('adding')}
-        aria-label={t('buttons.addChannel')}
       >
         +
       </Button>

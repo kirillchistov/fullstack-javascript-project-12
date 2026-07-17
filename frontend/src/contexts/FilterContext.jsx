@@ -3,13 +3,16 @@ import filter from 'leo-profanity';
 
 const FilterContext = createContext(null);
 
-filter.loadDictionary('en');
-filter.add(filter.getDictionary('ru'));
-
 export const FilterProvider = ({ children }) => {
-  const value = useMemo(() => ({
-    clean: (text) => filter.clean(text),
-  }), []);
+  const value = useMemo(() => {
+    filter.clearList();
+    filter.loadDictionary('en');
+    filter.add(filter.getDictionary('ru'));
+
+    return {
+      clean: (text) => filter.clean(text),
+    };
+  }, []);
 
   return (
     <FilterContext.Provider value={value}>

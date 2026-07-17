@@ -4,7 +4,6 @@ import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Nav from 'react-bootstrap/Nav';
-import { Gear } from 'react-bootstrap-icons';
 
 const ChannelList = ({
   channels,
@@ -47,7 +46,7 @@ const ChannelList = ({
                     className="channel-gear-toggle"
                     id={`channel-dropdown-${channel.id}`}
                   >
-                    <Gear aria-label={t('buttons.management')} />
+                    <span className="visually-hidden">{t('buttons.management')}</span>
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
                     <Dropdown.Item onClick={() => onShowModal('renaming', channel)}>

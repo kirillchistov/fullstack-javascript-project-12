@@ -41,9 +41,9 @@ export default {
     signUpPage: {
       title: 'Регистрация',
       form: {
-        username: 'Ваш ник',
+        username: 'Имя пользователя',
         password: 'Пароль',
-        confirmPassword: 'Подтверждение пароля',
+        confirmPassword: 'Подтвердите пароль',
       },
       footer: {
         sentence: 'Уже есть аккаунт?',

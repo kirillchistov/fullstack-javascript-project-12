@@ -25,6 +25,7 @@ const rollbarConfig = {
   captureUncaught: true,
   captureUnhandledRejections: true,
   environment: import.meta.env.MODE,
+  enabled: Boolean(import.meta.env.VITE_ROLLBAR_ACCESS_TOKEN),
 };
 
 const rollbarFallback = () => (

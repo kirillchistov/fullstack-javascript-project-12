@@ -15,8 +15,6 @@
     "node": "20.x"
   },
   "dependencies": {
-    "@hexlet/chat-server": "^2.0.4",
-    "@rollbar/react": "^1.0.0",
-    "rollbar": "^3.1.0"
+    "@hexlet/chat-server": "^2.0.4"
   }
 }
