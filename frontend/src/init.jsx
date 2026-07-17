@@ -1,3 +1,4 @@
+import { Provider as RollbarProvider, ErrorBoundary } from '@rollbar/react';
 import i18next from 'i18next';
 import { StrictMode } from 'react';
 import { I18nextProvider, initReactI18next } from 'react-i18next';
@@ -18,6 +19,20 @@ import {
   setActiveChannel,
   setConnectionStatus,
 } from './store/uiSlice.js';
+
+const rollbarConfig = {
+  accessToken: import.meta.env.VITE_ROLLBAR_ACCESS_TOKEN,
+  captureUncaught: true,
+  captureUnhandledRejections: true,
+  environment: import.meta.env.MODE,
+};
+
+const rollbarFallback = () => (
+  <div style={{ padding: '20px', color: 'red' }}>
+    <h2>Oops, something went wrong.</h2>
+    <p>We&apos;ve been notified and are looking into it.</p>
+  </div>
+);
 
 const initSocket = (i18n) => {
   const socket = io();
@@ -108,22 +123,26 @@ const init = async () => {
   initSocket(i18n);
 
   return (
-    <StrictMode>
-      <I18nextProvider i18n={i18n}>
-        <Provider store={store}>
-          <FilterProvider>
-            <App />
-            <ToastContainer
-              transition={Slide}
-              autoClose={5000}
-              pauseOnFocusLoss
-              draggable
-              pauseOnHover
-            />
-          </FilterProvider>
-        </Provider>
-      </I18nextProvider>
-    </StrictMode>
+    <RollbarProvider config={rollbarConfig}>
+      <StrictMode>
+        <I18nextProvider i18n={i18n}>
+          <Provider store={store}>
+            <FilterProvider>
+              <ErrorBoundary fallbackUI={rollbarFallback}>
+                <App />
+                <ToastContainer
+                  transition={Slide}
+                  autoClose={5000}
+                  pauseOnFocusLoss
+                  draggable
+                  pauseOnHover
+                />
+              </ErrorBoundary>
+            </FilterProvider>
+          </Provider>
+        </I18nextProvider>
+      </StrictMode>
+    </RollbarProvider>
   );
 };
 

@@ -29,6 +29,17 @@ make start
 
 Приложение доступно на [http://localhost:5001](http://localhost:5001).
 
+## Rollbar
+
+1. Создайте бесплатный аккаунт на [rollbar.com](https://rollbar.com) и проект для JavaScript/React.
+2. Скопируйте токен **post_client_item** (Project Settings → Project Access Tokens).
+3. Создайте `.env.local` в корне проекта по образцу `.env.example`:
+   ```
+   VITE_ROLLBAR_ACCESS_TOKEN=<ваш_токен>
+   ```
+4. На Render добавьте переменную окружения `VITE_ROLLBAR_ACCESS_TOKEN` и пересоберите приложение.
+5. Проверьте отправку: войдите в чат и нажмите **Trigger Test Error** (кнопка на главной странице). Ошибка должна появиться в Rollbar → Items, а на экране — fallback от ErrorBoundary.
+
 ## Разработка
 
 ```bash
@@ -53,7 +64,8 @@ curl http://localhost:5001/api/v1/channels
 ### Шаг 13
 - []
 ### Шаг 12
-- []
+- [ ] Создать бесплатный аккаунт на сервисе Rollbar
+- [ ] Подключить Rollbar для React и задеплоить. Проверить что ошибки доходят до сервиса.
 ### Шаг 11
 - [x] Подключить библиотеку для фильтрации нецензурных слов.
 - [x] Реализовать фильтрацию нецензурных слов в чате и при создании новых каналов.
